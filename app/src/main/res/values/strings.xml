@@ -15,4 +15,5 @@
     <string name="work">Work</string>
     <string name="home">Home</string>
     <string name="choice_starts_timer">Choosing either starts timer</string>
+    <string name="transfer">Transfer</string>
 </resources>

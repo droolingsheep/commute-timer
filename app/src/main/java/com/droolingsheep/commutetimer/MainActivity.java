@@ -78,7 +78,8 @@ public class MainActivity extends Activity {
                 arg = Direction.HOME;
             }
             if (arg != null) {
-                getFragmentManager().beginTransaction().replace(R.id.container, LineChoiceFragment.newInstance(arg)).commit();
+                //TODO record "Leave" time here
+                getFragmentManager().beginTransaction().replace(R.id.container, AtStopFragment.newInstance(arg)).commit();
             }
         }
     }

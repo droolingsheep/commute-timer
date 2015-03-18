@@ -76,7 +76,7 @@ public class LineChoiceFragment extends Fragment {
         lineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment f = ProgressFragment.newInstance(mRoutes[position]);
+                Fragment f = ProgressFragment.newInstance(mDirection, mRoutes[position]);
                 getFragmentManager().beginTransaction().replace(R.id.container, f).commit();
             }
         });

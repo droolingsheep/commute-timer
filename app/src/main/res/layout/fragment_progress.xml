@@ -1,14 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
     tools:context="com.droolingsheep.commutetimer.ProgressFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progress_button"
+        android:text="@string/on_bus"
         android:layout_gravity="center"
         android:textSize="60sp" />
-</FrameLayout>
+
+    <Button
+        android:layout_marginTop="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/transfer_button"
+        android:text="@string/transfer"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:textSize="60sp" />
+</LinearLayout>
