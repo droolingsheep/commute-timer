@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
+            CommuteRecord.newInstance();
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new DirectionFragment())
                     .commit();
@@ -78,7 +79,7 @@ public class MainActivity extends Activity {
                 arg = Direction.HOME;
             }
             if (arg != null) {
-                //TODO record "Leave" time here
+                CommuteRecord.getInstance().recordTime(Step.LEAVE);
                 getFragmentManager().beginTransaction().replace(R.id.container, AtStopFragment.newInstance(arg)).commit();
             }
         }

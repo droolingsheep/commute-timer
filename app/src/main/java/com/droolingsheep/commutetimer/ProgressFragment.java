@@ -19,8 +19,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
     private static final String ROUTE = "route";
     private static final String DIRECTION = "direction";
     private Button mButton;
-    //TODO make this an enum and make "At Stop" its own fragment.
-    //TODO handle transfers
     private int mCurrentStep = 0;
     private Route mRoute;
     private Button mTransferButton;
@@ -74,17 +72,27 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
             switch (mCurrentStep) {
                 case 0:
                     mCurrentStep = 1;
+                    if (mDirection.isTransfer()) {
+                        CommuteRecord.getInstance().recordTime(Step.ON_TRANSFER);
+                    } else {
+                        CommuteRecord.getInstance().recordTime(Step.ON);
+                    }
                     mButton.setText(R.string.off_bus);
                     break;
                 case 1:
                     mCurrentStep = 2;
+                    if (mDirection.isTransfer()) {
+                        CommuteRecord.getInstance().recordTime(Step.OFF_TRANSFER);
+                    } else {
+                        CommuteRecord.getInstance().recordTime(Step.OFF);
+                    }
                     mButton.setText(R.string.arrive);
                     if (mDirection == Direction.WORK || mDirection == Direction.HOME) {
                         mTransferButton.setVisibility(View.VISIBLE);
                     }
                     break;
                 case 2:
-                    //TODO record arrival time
+                    CommuteRecord.getInstance().recordTime(Step.ARRIVE);
                     //TODO bring up summary fragment
                     getActivity().finish();
                     break;
@@ -101,6 +109,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 default:
                     throw new IllegalStateException("Direction must be HOME or WORK");
             }
+            CommuteRecord.getInstance().recordTime(Step.AT_TRANSFER_STOP);
             getFragmentManager().beginTransaction().replace(R.id.container, LineChoiceFragment.newInstance(transferDirection)).commit();
         }
     }

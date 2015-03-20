@@ -49,7 +49,11 @@ public class AtStopFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == mAtStopButton) {
-            //TODO record time for at stop
+            if (mDirection.isTransfer()) {
+                CommuteRecord.getInstance().recordTime(Step.AT_TRANSFER_STOP);
+            } else {
+                CommuteRecord.getInstance().recordTime(Step.AT_STOP);
+            }
             getFragmentManager().beginTransaction().replace(R.id.container, LineChoiceFragment.newInstance(mDirection)).commit();
         }
     }

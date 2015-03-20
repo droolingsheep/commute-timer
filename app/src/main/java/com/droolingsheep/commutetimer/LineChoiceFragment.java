@@ -77,6 +77,7 @@ public class LineChoiceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment f = ProgressFragment.newInstance(mDirection, mRoutes[position]);
+                CommuteRecord.getInstance().setRoute(mRoutes[position]);
                 getFragmentManager().beginTransaction().replace(R.id.container, f).commit();
             }
         });
