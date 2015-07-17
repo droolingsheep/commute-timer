@@ -29,23 +29,28 @@ public class CommuteRecord {
     }
 
     public static void newInstance(Context context) {
+        saveInstance();
+        sInstance = new CommuteRecord(context);
+    }
+
+    public static void saveInstance() {
         if (sInstance != null) {
             sInstance.writeToDb();
+            sInstance = null;
         }
-        sInstance = new CommuteRecord(context);
     }
 
     private void writeToDb() {
         SQLiteOpenHelper dbHelper = new CommuteRecordDbHelper(mContext);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         database.beginTransaction();
-        ContentValues values = convertToContentValues();
+        ContentValues values = createContentValues();
         database.insert(CommuteRecordDbHelper.TABLE_NAME, null, values);
         database.endTransaction();
         database.close();
     }
 
-    private ContentValues convertToContentValues() {
+    private ContentValues createContentValues() {
         ContentValues values = new ContentValues();
         values.put(CommuteRecordDbHelper.KEY_LEAVE_TIME, mTimestamps.get(Step.LEAVE));
         values.put(CommuteRecordDbHelper.KEY_AT_STOP_1_TIME, mTimestamps.get(Step.AT_STOP_1));

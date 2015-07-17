@@ -63,9 +63,6 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         mButton.setOnClickListener(this);
         mTransferButton = (Button) v.findViewById(R.id.transfer_button);
         mTransferButton.setOnClickListener(this);
-        if (mDirection.isTransfer()) {
-            mTransferButton.setVisibility(View.GONE);
-        }
         return v;
     }
 
@@ -91,12 +88,13 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                         CommuteRecord.getInstance().recordTime(Step.ALIGHT_1);
                     }
                     mButton.setText(R.string.arrive);
-                    if (mDirection == Direction.WORK || mDirection == Direction.HOME) {
+                    if (!mDirection.isTransfer()) {
                         mTransferButton.setVisibility(View.VISIBLE);
                     }
                     break;
                 case 2:
                     CommuteRecord.getInstance().recordTime(Step.ARRIVE);
+                    CommuteRecord.saveInstance();
                     //TODO bring up summary fragment
                     getActivity().finish();
                     break;
