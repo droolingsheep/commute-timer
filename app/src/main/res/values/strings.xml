@@ -4,16 +4,16 @@
     <string name="action_settings">Settings</string>
     <string name="headingtowards">Heading Towards:</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+<!-- Strings that need to be spanned on an all caps button are rendered here in caps as a workaround for a bug in Lollipop -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="whichline">Which Line?</string>
     <string name="leave">Leave</string>
-    <string name="at_stop">At Stop</string>
+    <string name="at_stop">AT STOP</string>
     <string name="on_bus">On Bus</string>
     <string name="off_bus">Off Bus</string>
     <string name="arrive">Arrive</string>
     <string name="work">Work</string>
     <string name="home">Home</string>
     <string name="choice_starts_timer">Choosing either starts timer</string>
-    <string name="transfer">Transfer</string>
+    <string name="transfer">TRANSFER</string>
 </resources>

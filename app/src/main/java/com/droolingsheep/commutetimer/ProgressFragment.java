@@ -1,8 +1,12 @@
 package com.droolingsheep.commutetimer;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +67,20 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         mButton.setOnClickListener(this);
         mTransferButton = (Button) v.findViewById(R.id.transfer_button);
         mTransferButton.setOnClickListener(this);
+        SpannableStringBuilder transferLabel = new SpannableStringBuilder();
+        Resources res = getResources();
+        transferLabel.append(res.getString(R.string.transfer));
+        TextAppearanceSpan largeSpan = new TextAppearanceSpan(getActivity(), R.style.large_text);
+        TextAppearanceSpan smallSpan = new TextAppearanceSpan(getActivity(), R.style.small_text);
+        transferLabel.setSpan(largeSpan, 0, transferLabel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        transferLabel.append('\n');
+        int smallSpanStart = transferLabel.length();
+        transferLabel.append("(");
+        transferLabel.append(res.getString(R.string.at_stop));
+        transferLabel.append(")");
+        transferLabel.setSpan(smallSpan, smallSpanStart, transferLabel.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //There's a bug in Lollipop that breaks spannable strings if "all caps" is set :(
+        mTransferButton.setText(transferLabel);
         return v;
     }
 
