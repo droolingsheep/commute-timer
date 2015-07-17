@@ -54,10 +54,10 @@ public class LineChoiceFragment extends Fragment {
                     mRoutes = Route.sHomeRoutes;
                     break;
                 case WORK_TRANSFER:
-                    mRoutes = Route.sHomeTransferRoutes;
+                    mRoutes = Route.sWorkTransferRoutes;
                     break;
                 case HOME_TRANSFER:
-                    mRoutes = Route.sWorkTransferRoutes;
+                    mRoutes = Route.sHomeTransferRoutes;
                     break;
                 default:
                     throw new IllegalStateException("mDirection was not initialized");
@@ -77,7 +77,13 @@ public class LineChoiceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Fragment f = ProgressFragment.newInstance(mDirection, mRoutes[position]);
-                CommuteRecord.getInstance().setRoute(mRoutes[position]);
+                if (mDirection.isTransfer()) {
+                    CommuteRecord.getInstance().setTransferRoute(mRoutes[position]);
+                } else {
+                    CommuteRecord.getInstance().setRoute(mRoutes[position]);
+                    //Only set the direction on the first line choice
+                    CommuteRecord.getInstance().setDirection(mDirection);
+                }
                 getFragmentManager().beginTransaction().replace(R.id.container, f).commit();
             }
         });

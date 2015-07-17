@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            CommuteRecord.newInstance();
+            CommuteRecord.newInstance(this);
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new DirectionFragment())
                     .commit();

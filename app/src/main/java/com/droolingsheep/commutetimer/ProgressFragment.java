@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
+//TODO add tracking of board/alight location
+//TODO add tracking of bus number
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProgressFragment#newInstance} factory method to
@@ -62,6 +63,9 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
         mButton.setOnClickListener(this);
         mTransferButton = (Button) v.findViewById(R.id.transfer_button);
         mTransferButton.setOnClickListener(this);
+        if (mDirection.isTransfer()) {
+            mTransferButton.setVisibility(View.GONE);
+        }
         return v;
     }
 
@@ -73,18 +77,18 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 case 0:
                     mCurrentStep = 1;
                     if (mDirection.isTransfer()) {
-                        CommuteRecord.getInstance().recordTime(Step.ON_TRANSFER);
+                        CommuteRecord.getInstance().recordTime(Step.BOARD_2);
                     } else {
-                        CommuteRecord.getInstance().recordTime(Step.ON);
+                        CommuteRecord.getInstance().recordTime(Step.BOARD_1);
                     }
                     mButton.setText(R.string.off_bus);
                     break;
                 case 1:
                     mCurrentStep = 2;
                     if (mDirection.isTransfer()) {
-                        CommuteRecord.getInstance().recordTime(Step.OFF_TRANSFER);
+                        CommuteRecord.getInstance().recordTime(Step.ALIGHT_2);
                     } else {
-                        CommuteRecord.getInstance().recordTime(Step.OFF);
+                        CommuteRecord.getInstance().recordTime(Step.ALIGHT_1);
                     }
                     mButton.setText(R.string.arrive);
                     if (mDirection == Direction.WORK || mDirection == Direction.HOME) {
@@ -109,7 +113,7 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 default:
                     throw new IllegalStateException("Direction must be HOME or WORK");
             }
-            CommuteRecord.getInstance().recordTime(Step.AT_TRANSFER_STOP);
+            CommuteRecord.getInstance().recordTime(Step.AT_STOP_2);
             getFragmentManager().beginTransaction().replace(R.id.container, LineChoiceFragment.newInstance(transferDirection)).commit();
         }
     }
