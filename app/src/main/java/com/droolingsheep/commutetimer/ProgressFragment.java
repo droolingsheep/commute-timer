@@ -113,8 +113,8 @@ public class ProgressFragment extends Fragment implements View.OnClickListener {
                 case 2:
                     CommuteRecord.getInstance().recordTime(Step.ARRIVE);
                     CommuteRecord.saveInstance();
-                    //TODO bring up summary fragment
-                    getActivity().finish();
+                    //TODO bring up summary fragment instead of restarting
+                    getActivity().recreate();
                     break;
             }
         } else if (v == mTransferButton) {

@@ -41,11 +41,15 @@ public class CommuteRecord {
     }
 
     private void writeToDb() {
+        if (mRoute == null) {
+            return;
+        }
         SQLiteOpenHelper dbHelper = new CommuteRecordDbHelper(mContext);
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         database.beginTransaction();
         ContentValues values = createContentValues();
         database.insert(CommuteRecordDbHelper.TABLE_NAME, null, values);
+        database.setTransactionSuccessful();
         database.endTransaction();
         database.close();
     }

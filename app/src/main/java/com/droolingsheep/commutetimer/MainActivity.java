@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
 
         private Button mHomeButton;
         private Button mWorkButton;
+        private Button mViewButton;
 
         public DirectionFragment() {
         }
@@ -67,6 +68,8 @@ public class MainActivity extends Activity {
             mHomeButton.setOnClickListener(this);
             mWorkButton = (Button) rootView.findViewById(R.id.work_button);
             mWorkButton.setOnClickListener(this);
+            mViewButton = (Button) rootView.findViewById(R.id.view_button);
+            mViewButton.setOnClickListener(this);
             return rootView;
         }
 
@@ -77,6 +80,8 @@ public class MainActivity extends Activity {
                 arg = Direction.WORK;
             } else if (v == mHomeButton) {
                 arg = Direction.HOME;
+            } else if (v == mViewButton) {
+                getFragmentManager().beginTransaction().replace(R.id.container, HistoryFragment.newInstance()).commit();
             }
             if (arg != null) {
                 CommuteRecord.getInstance().recordTime(Step.LEAVE);

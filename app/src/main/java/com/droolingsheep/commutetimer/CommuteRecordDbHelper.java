@@ -1,6 +1,7 @@
 package com.droolingsheep.commutetimer;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -35,7 +36,7 @@ public class CommuteRecordDbHelper extends SQLiteOpenHelper {
     private static final String NAME = "commute_record_db";
     public static final String TABLE_NAME = "commute_records";
 
-    public static final String KEY_ID = "id";
+    public static final String KEY_ID = "_id";
 
     public static final String KEY_LEAVE_TIME = "leave_time";
     public static final String KEY_AT_STOP_1_TIME = "at_stop_1_time";
@@ -89,5 +90,11 @@ public class CommuteRecordDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Do nothing since there's only one version right now
+    }
+
+    public Cursor getAllHistory() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        //return db.query(TABLE_NAME, null, null, null, null, null, null);
     }
 }
